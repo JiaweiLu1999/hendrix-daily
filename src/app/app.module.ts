@@ -6,17 +6,29 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {NgOptimizedImage} from "@angular/common";
 import { CleanComponent } from './clean/clean.component';
+import { HeaderComponent } from './header/header.component';
+import { SignupComponent } from './signup/signup.component';
+import {FormsModule} from "@angular/forms";
+import { ProfileComponent } from './profile/profile.component';
+import { LogoutComponent } from './logout/logout.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    CleanComponent
+    CleanComponent,
+    HeaderComponent,
+    SignupComponent,
+    ProfileComponent,
+    LogoutComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
