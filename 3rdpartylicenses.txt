@@ -25,6 +25,9 @@ Apache-2.0
 @firebase/component
 Apache-2.0
 
+@firebase/database
+Apache-2.0
+
 @firebase/installations
 Apache-2.0
 
@@ -64,6 +67,8 @@ firebase/analytics
 firebase/app
 
 firebase/auth
+
+firebase/database
 
 idb
 ISC
