@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {TodoItem} from "./todoItem";
+import {CleanService} from "./clean.service";
+
 
 @Component({
   selector: 'app-clean',
@@ -6,5 +9,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./clean.component.css']
 })
 export class CleanComponent {
+  constructor(public cleanService: CleanService) {
+
+  }
 
 }

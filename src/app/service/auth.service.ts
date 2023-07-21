@@ -1,13 +1,16 @@
 import {Injectable} from '@angular/core';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getDatabase, ref, set, push } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword,
   signInWithEmailAndPassword, onAuthStateChanged, User, signOut} from "firebase/auth";
 import {BehaviorSubject} from "rxjs";
+import {TodoItem} from "../clean/todoItem";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCRSi1Jtt3x3StAOQ6-lPn4a7ynLR9_JIc",
   authDomain: "hendrix-daily.firebaseapp.com",
+  databaseURL: "https://hendrix-daily-default-rtdb.firebaseio.com",
   projectId: "hendrix-daily",
   storageBucket: "hendrix-daily.appspot.com",
   messagingSenderId: "300323447076",
@@ -17,7 +20,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const auth = getAuth(app);
+
 
 
 
@@ -26,26 +29,15 @@ const auth = getAuth(app);
 })
 export class AuthService{
   authStatusSub = new BehaviorSubject<User|null>(null);
+  auth = getAuth(app);
+  database = getDatabase(app);
 
   constructor() {
-    this.authStatusListener();
-  }
 
-  authStatusListener() {
-    onAuthStateChanged(auth,
-      (user) => {
-        if (user) {
-          this.authStatusSub.next(user);
-          console.log(user);
-        } else {
-          this.authStatusSub.next(null);
-          console.log(user);
-        }
-      });
   }
 
   onSignUp(email: string, password: string) {
-    createUserWithEmailAndPassword(auth, email, password).then(
+    createUserWithEmailAndPassword(this.auth, email, password).then(
       (userCredential) => {
 
       }
@@ -56,7 +48,7 @@ export class AuthService{
   }
 
   onLogin(email: string, password: string) {
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
       })
       .catch((error) => {
@@ -65,7 +57,7 @@ export class AuthService{
   }
 
   onLogout() {
-    signOut(auth).then(() => {
+    signOut(this.auth).then(() => {
       // Sign-out successful.
     }).catch((error) => {
       // An error happened.

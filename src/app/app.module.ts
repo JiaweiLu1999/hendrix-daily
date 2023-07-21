@@ -12,6 +12,7 @@ import {FormsModule} from "@angular/forms";
 import { ProfileComponent } from './profile/profile.component';
 import { LogoutComponent } from './logout/logout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TodoCardComponent } from './clean/todo-card/todo-card.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SignupComponent,
     ProfileComponent,
     LogoutComponent,
-    DashboardComponent
+    DashboardComponent,
+    TodoCardComponent
   ],
   imports: [
     BrowserModule,

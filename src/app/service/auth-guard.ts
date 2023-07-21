@@ -1,7 +1,9 @@
 import {ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
 import {Injectable, OnDestroy, OnInit} from "@angular/core";
-import {map, Observable, Subscription} from "rxjs";
+import {map, Observable, Subscription, take} from "rxjs";
 import {AuthService} from "./auth.service";
+
+import {onAuthStateChanged} from "firebase/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +17,17 @@ export class AuthGuard{
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot):
     Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    let isAuthenticated = this.authService.authStatusSub.getValue();
-    if (isAuthenticated) return true;
-    this.router.navigate(['/login']);
-    return false;
-  }
+    return new Promise((resolve, reject) => {
+      onAuthStateChanged(this.authService.auth, (user)=> {
+        if (user) {
+          resolve(true);
+        }
+        else {
+          console.log('authguard' + user);
+          this.router.navigate(['/login']);
+          resolve(false);
+        }
+      })
+    })
+  };
 }

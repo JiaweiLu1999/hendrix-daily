@@ -7,13 +7,17 @@ import {ProfileComponent} from "./profile/profile.component";
 import {LogoutComponent} from "./logout/logout.component";
 import {AuthGuard} from "./service/auth-guard";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {TodoCardComponent} from "./clean/todo-card/todo-card.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent, pathMatch: "full"},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'logout', component: LogoutComponent},
-  {path: 'clean', component: CleanComponent, canActivate: [AuthGuard]},
+  {path: 'clean', component: CleanComponent, canActivate: [AuthGuard],
+  children: [
+    {path: 'add', component: TodoCardComponent}
+  ]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
 ];
 
