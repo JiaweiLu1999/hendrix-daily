@@ -1,0 +1,47 @@
+<div class="d-flex flex-column flex-md-row gap-4 align-items-center mx-1 my-3">
+  <form #f='ngForm' (ngSubmit)="onSubmitTask(f)">
+    <div class="row mb-3">
+      <label class="col-4 col-form-label" for="title">Task</label>
+      <div class="col-8">
+        <input id="title" name="title" type="text" class="form-control" [(ngModel)]="cleanService.curTask.title"
+               disabled>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-4 col-form-label" for="requester">Requester</label>
+      <div class="col-8">
+        <input id="requester" name="requester" type="text" class="form-control"
+               [(ngModel)]="cleanService.curTask.requester" disabled >
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-4 col-form-label" for="executor">Executor</label>
+      <div class="col-8">
+        <input id="executor" name="executor" type="text" class="form-control"
+               [(ngModel)]="userService.user.username" disabled >
+      </div>
+    </div>
+
+
+    <div class="row mb-3">
+      <label class="col-4 col-form-label" for="startTime">Start Time</label>
+      <div class="col-8">
+        <input id="startTime" name="startTime" type="text" class="form-control"
+               [(ngModel)]="cleanService.curTask.startTime" disabled >
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-4 col-form-label" for="endTime">End Time</label>
+      <div class="col-8">
+        <input id="endTime" name="endTime" type="text" class="form-control"
+               [ngModel]="getCurTime()" disabled >
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <button class="btn btn-success" type="submit">Complete Task</button>
+    </div>
+  </form>
+</div>

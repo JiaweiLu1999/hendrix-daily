@@ -1,1 +1,20 @@
-<button (click)="showUser()" class="btn btn-primary">Show User</button>
+<div class="m-auto mx-4">
+  <img ngSrc="assets/images/person-circle.svg" width="32" height="32" alt="Avatar">
+  <form class="my-3" #f="ngForm">
+    <div class="row mb-3">
+      <label class="col-2 col-form-label" for="email">Email</label>
+      <div class="col-4">
+        <input id="email" name="email" type="text" class="form-control"
+               [placeholder]="userService.user.email" disabled >
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-2 col-form-label" for="email">Username</label>
+      <div class="col-4">
+        <input id="username" name="username" type="text" class="form-control" [(ngModel)]="userService.user.username">
+      </div>
+      <button type="button" class="btn btn-outline-success col-1" (click)="onSaveUserInfo(f)">Save</button>
+    </div>
+  </form>
+</div>

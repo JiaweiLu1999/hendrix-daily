@@ -13,6 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { LogoutComponent } from './logout/logout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TodoCardComponent } from './clean/todo-card/todo-card.component';
+import { CompleteCardComponent } from './clean/complete-card/complete-card.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TodoCardComponent } from './clean/todo-card/todo-card.component';
     ProfileComponent,
     LogoutComponent,
     DashboardComponent,
-    TodoCardComponent
+    TodoCardComponent,
+    CompleteCardComponent
   ],
   imports: [
     BrowserModule,

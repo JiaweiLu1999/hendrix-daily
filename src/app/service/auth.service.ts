@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, set, push } from "firebase/database";
@@ -6,6 +6,7 @@ import { getAuth, createUserWithEmailAndPassword,
   signInWithEmailAndPassword, onAuthStateChanged, User, signOut} from "firebase/auth";
 import {BehaviorSubject} from "rxjs";
 import {TodoItem} from "../clean/todoItem";
+import {UserEntity} from "./user.entity";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCRSi1Jtt3x3StAOQ6-lPn4a7ynLR9_JIc",
@@ -27,7 +28,7 @@ const analytics = getAnalytics(app);
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService{
+export class AuthService implements OnDestroy{
   authStatusSub = new BehaviorSubject<User|null>(null);
   auth = getAuth(app);
   database = getDatabase(app);
@@ -36,10 +37,10 @@ export class AuthService{
 
   }
 
-  onSignUp(email: string, password: string) {
+  onSignUp(email: string, password: string, username: string) {
     createUserWithEmailAndPassword(this.auth, email, password).then(
       (userCredential) => {
-
+        set(push(ref(this.database, 'users/')), new UserEntity(email,username, ''));
       }
     ).catch((error) => {
       let errorMessage = error.message;
@@ -50,6 +51,7 @@ export class AuthService{
   onLogin(email: string, password: string) {
     signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
+        this.authStatusSub.next(userCredential.user);
       })
       .catch((error) => {
         console.log(error.message);
@@ -58,10 +60,14 @@ export class AuthService{
 
   onLogout() {
     signOut(this.auth).then(() => {
-      // Sign-out successful.
+      this.authStatusSub.next(null);
     }).catch((error) => {
       // An error happened.
     });
+  }
+
+  ngOnDestroy(): void {
+
   }
 
 }

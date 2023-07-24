@@ -1,36 +1,46 @@
 <div id="todo" class="container my-2">
   <h3>To-Do List</h3>
   <div class="d-flex flex-column flex-md-row gap-4 align-items-center">
-    <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true"
-         *ngFor="let item of cleanService.todoList">
+    <div class="col-lg-4 list-group">
+      <a [routerLink]="'/clean/'+cleanService.todoKeys[i]" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true"
+         *ngFor="let item of cleanService.todoList; let i = index" (click)="cleanService.getCurTask(cleanService.todoKeys[i])">
         <div class="d-flex gap-2 w-100 justify-content-between">
           <div>
             <h6 class="mb-0">{{item.title}}</h6>
-            <p class="mb-0 opacity-75">{{item.requester}}</p>
+            <p class="mb-0 opacity-75">requester: {{item.requester}}</p>
           </div>
-          <small class="opacity-50 text-nowrap">now</small>
+          <small class="opacity-50 text-nowrap">{{item.startTime.substring(0, 11)}}</small>
         </div>
       </a>
       <a href="/clean/add" class="list-group-item list-group-item-action d-flex gap-3 py-3 bg-body-tertiary" aria-current="true">
         <div class="d-flex gap-2 w-100 justify-content-between">
           <div>
             <h6 class="mb-0">Add a task</h6>
-            <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
+            <p class="mb-0 opacity-75">Add new housework into the to-do list.</p>
           </div>
-          <small class="opacity-50 text-nowrap">1w</small>
         </div>
       </a>
     </div>
   </div>
 
   <router-outlet></router-outlet>
+</div>
 
-
+<div id="completed" class="container my-5">
+  <h3>Completed Tasks</h3>
   <div class="d-flex flex-column flex-md-row gap-4 align-items-center">
-    <h3>Completed Tasks</h3>
-    <div class="list-group">
-
+    <div class="col-lg-4 list-group">
+      <a class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true"
+         *ngFor="let item of cleanService.completedList; let i = index">
+        <div class="d-flex gap-2 w-100 justify-content-between">
+          <div>
+            <h6 class="mb-0">{{item.title}}</h6>
+            <p class="mb-0 opacity-75">requester: {{item.requester}} | executor: {{item.executor}}</p>
+            <p class="mb-0 opacity-25">finished at {{item.endTime}}</p>
+          </div>
+          <small class="opacity-25 text-nowrap">{{item.startTime.substring(0, 11)}}</small>
+        </div>
+      </a>
     </div>
   </div>
 
